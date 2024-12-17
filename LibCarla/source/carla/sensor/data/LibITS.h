@@ -403,60 +403,68 @@ public:
     typedef long VehicleWidth_t;
 
     /* LongitudinalAcceleration Dependencies */
+//此部分定义了一个名为LongitudinalAcceletationValue的枚举类型，用于描述车辆纵向加速度可能出现的不同取值情况。
+//枚举中的各个成员代表了特定的纵向加速度状态或者具体的加速度数值。
     typedef enum LongitudinalAcceletationValue
     {
-        LongitudinalAccelerationValue_pointOneMeterPerSecSquaredForward = 1,
-        LongitudinalAccelerationValue_pointOneMeterPerSecSquaredBackWard = -1,
-        LongitudinalAccelerationValue_unavailable = 161
+        LongitudinalAccelerationValue_pointOneMeterPerSecSquaredForward = 1,  // 表示车辆纵向加速度为每秒平方0.1米且方向向前的情况，对应枚举值为1
+        LongitudinalAccelerationValue_pointOneMeterPerSecSquaredBackWard = -1,// 表示车辆纵向加速度为每秒平方0.1米且方向向后的情况，对应枚举值为 -1
+        LongitudinalAccelerationValue_unavailable = 161 // 表示车辆纵向加速度信息不可用的情况，对应枚举值为161
     } e_LongitudinalAccelerationValue;
-
+// 定义LongitudinalAccelerationValue_t类型为long类型，后续将使用该类型来存储纵向加速度值相关的数据，在程序中作为相应变量的类型定义。
     /* LongitudinalAcclerationValue */
     typedef long LongitudinalAccelerationValue_t;
 
     /* AccelerationConfidence Dependencies */
+// 这里定义了一个名为AccelerationConfidence的枚举类型，其目的是表示对加速度信息的可信程度，也就是置信度的不同情况。
+// 不同的枚举成员对应着不同范围的置信度或者特殊的置信度状态。
     typedef enum AccelerationConfidence
     {
-        AccelerationConfindence_pointOneMeterPerSecSquared = 1,
-        AccelerationConfidence_outOfRange = 101,
-        AccelerationConfidence_unavailable = 102
+        AccelerationConfindence_pointOneMeterPerSecSquared = 1, // 表示加速度的置信度处于每秒平方0.1米这个范围内，对应枚举值为1
+        AccelerationConfidence_outOfRange = 101,// 表示加速度的值超出了正常有效的范围，对应枚举值为101
+        AccelerationConfidence_unavailable = 102// 表示加速度的置信度相关信息不可用，对应枚举值为102
     } e_AccelerationConfidence;
-
+// 定义AccelerationConfidence_t类型为long类型，用于存储加速度置信度相关的数据，方便在程序中作为变量类型进行各种操作。
     /* AccelerationConfidence*/
     typedef long AccelerationConfidence_t;
 
     /* LongitudinalAcceleration */
+//这个结构体将纵向加速度值（LongitudinalAccelerationValue_t类型）和纵向加速度的置信度（AccelerationConfidence_t类型）组合在一起。
+// 这样在程序中可以把这两个与纵向加速度相关的重要信息作为一个整体来处理，例如在传递、存储或者进行相关运算时会更加方便，便于表示车辆纵向加速度的综合情况。
     typedef struct LongitudinalAcceleration
     {
-        LongitudinalAccelerationValue_t longitudinalAccelerationValue;
-        AccelerationConfidence_t longitudinalAccelerationConfidence;
+        LongitudinalAccelerationValue_t longitudinalAccelerationValue; // 结构体中的成员变量，用于存储车辆纵向加速度的具体数值
+        AccelerationConfidence_t longitudinalAccelerationConfidence; // 结构体中的成员变量，用于存储车辆纵向加速度的置信度情况
     } LongitudinalAcceleration_t;
 
     /* CurvatureValue Dependencies */
+//以下定义了一个名为CurvatureValue的枚举类型，主要用于表示道路曲率相关的不同取值情况，涵盖了道路不同弯曲状态以及特殊的表示情况。
     typedef enum CurvatureValue
     {
-        CurvatureValue_straight = 0,
-        CurvatureValue_reciprocalOf1MeterRadiusToRight = -30000,
-        CurvatureValue_reciprocalOf1MeterRadiusToLeft = 30000,
-        CurvatureValue_unavailable = 30001
+        CurvatureValue_straight = 0,// 表示道路是直线的情况，对应枚举值为0
+        CurvatureValue_reciprocalOf1MeterRadiusToRight = -30000, // 表示道路曲率为半径1米的圆向右弯曲（这里用曲率值即半径倒数来表示，此值为 -30000），对应枚举值为 -30000
+        CurvatureValue_reciprocalOf1MeterRadiusToLeft = 30000, // 表示道路曲率为半径1米的圆向左弯曲（同样用曲率值即半径倒数来表示，此值为30000），对应枚举值为30000
+        CurvatureValue_unavailable = 30001// 表示道路曲率信息不可用的情况，对应枚举值为30001
     } e_CurvatureValue;
-
+// 定义CurvatureValue_t类型为long类型，用于存储道路曲率值相关的数据，在程序后续处理道路曲率相关操作时，可以作为合适的变量类型来运用。
     /* CurvatureValue */
     typedef long CurvatureValue_t;
 
     /* CurvatureConfidence Dependencies*/
+//定义了一个名为CurvatureConfidence的枚举类型，用于描述对道路曲率信息的置信度情况，包含了不同精度范围下的置信度以及特殊的状态表示。
     typedef enum CurvatureConfidence
     {
-        CurvatureConfidence_onePerMeter_0_00002 = 0,
-        CurvatureConfidence_onePerMeter_0_0001  = 1,
-        CurvatureConfidence_onePerMeter_0_0005  = 2,
-        CurvatureConfidence_onePerMeter_0_002   = 3,
-        CurvatureConfidence_onePerMeter_0_01    = 4,
-        CurvatureConfidence_onePerMeter_0_1 = 5,
-        CurvatureConfidence_outOfRange  = 6,
-        CurvatureConfidence_unavailable = 7
+        CurvatureConfidence_onePerMeter_0_00002 = 0,// 表示道路曲率置信度为每米0.00002的情况，对应枚举值为0
+        CurvatureConfidence_onePerMeter_0_0001  = 1, // 表示道路曲率置信度为每米0.0001的情况，对应枚举值为1
+        CurvatureConfidence_onePerMeter_0_0005  = 2,// 表示道路曲率置信度为每米0.0005的情况，对应枚举值为2
+        CurvatureConfidence_onePerMeter_0_002   = 3,// 表示道路曲率置信度为每米0.002的情况，对应枚举值为3
+        CurvatureConfidence_onePerMeter_0_01    = 4, // 表示道路曲率置信度为每米0.01的情况，对应枚举值为4
+        CurvatureConfidence_onePerMeter_0_1 = 5,// 表示道路曲率置信度为每米0.1的情况，对应枚举值为5
+        CurvatureConfidence_outOfRange  = 6,// 表示道路曲率超出了正常的有效范围，对应枚举值为6
+        CurvatureConfidence_unavailable = 7// 表示道路曲率置信度相关信息不可用的情况，对应枚举值为7
     } e_CurvatureConfidence;
-
-    /* CurvatureConfidence */
+// 定义CurvatureConfidence_t类型为long类型，用于存储道路曲率置信度相关的数据，便于在程序里作为变量类型进行操作与处理。
+    /* CurvatureConfidence*/
     typedef long CurvatureConfidence_t;
 
     /* Curvature */
